@@ -41,7 +41,10 @@ usernames = ["theonaimben@gmail.com", "alexisdurin@gmail.com"]
 passwords = ["boomer", "yumi"]
 
 # 🔐 Hash des mots de passe (à ne faire qu'une fois)
-hashed_passwords = stauth.Hasher([pwd.encode() for pwd in passwords]).generate()
+hashed_passwords = [
+  '$2b$12$QRzQfV0DB5gD1K.TM5rjweh9CHx0IwlGAclczL2S3dQ7r29kULzGa',
+  '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvklMnAYVIJErU1/ELgM7b9C'
+]
 
 # Configuration des utilisateurs
 credentials = {

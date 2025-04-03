@@ -62,11 +62,10 @@ authenticator = stauth.Authenticate(
 # Bloc de login
 login_result = authenticator.login(location="main")
 
-if login_result is not None:
+try:
     name, authentication_status, username = login_result
-else:
+except TypeError:
     name = authentication_status = username = None
-
 
 
 
@@ -79,18 +78,21 @@ elif authentication_status is None:
 elif authentication_status:
     st.success(f"Bienvenue {name} 👋")
 
+
+# === Création auto des fichiers et dossiers à la première connexion
 if authentication_status:
     authenticator.logout("🚪 Se déconnecter", "sidebar")
     st.sidebar.success(f"Connecté en tant que {name}")
 
-# === Création auto des fichiers et dossiers à la première connexion
-user_data_dir = os.path.join("data", username)
-os.makedirs(user_data_dir, exist_ok=True)
+    # === Création auto des fichiers et dossiers à la première connexion
+    user_data_dir = os.path.join("data", username)
+    os.makedirs(user_data_dir, exist_ok=True)
 
-data_file = os.path.join(user_data_dir, "trades_historique.csv")
-journal_file = os.path.join(user_data_dir, "journal_notes.json")
-image_dir = os.path.join(user_data_dir, "journal_images")
-os.makedirs(image_dir, exist_ok=True)
+    data_file = os.path.join(user_data_dir, "trades_historique.csv")
+    journal_file = os.path.join(user_data_dir, "journal_notes.json")
+    image_dir = os.path.join(user_data_dir, "journal_images")
+    os.makedirs(image_dir, exist_ok=True)
+
 
 # Initialise journal s’il n’existe pas
 if not os.path.exists(journal_file):

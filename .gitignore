@@ -1,5 +1,4 @@
-# Ne pas suivre les fichiers perso ou temporaires
 __pycache__/
 *.pyc
-data/*
-!data/.gitkeep
+.env
+data/

@@ -5,3 +5,5 @@ numpy
 plotly
 yfinance
 calplot
+bcrypt
+pyyaml

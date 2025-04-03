@@ -88,10 +88,11 @@ if authentication_status:
     user_data_dir = os.path.join("data", username)
     os.makedirs(user_data_dir, exist_ok=True)
 
-    data_file = os.path.join(user_data_dir, "trades_historique.csv")
-    journal_file = os.path.join(user_data_dir, "journal_notes.json")
-    image_dir = os.path.join(user_data_dir, "journal_images")
-    os.makedirs(image_dir, exist_ok=True)
+
+data_file = os.path.join(user_data_dir, "trades_historique.csv")
+journal_file = os.path.join(user_data_dir, "journal_notes.json")
+image_dir = os.path.join(user_data_dir, "journal_images")
+os.makedirs(image_dir, exist_ok=True)
 
 
 # Initialise journal s’il n’existe pas

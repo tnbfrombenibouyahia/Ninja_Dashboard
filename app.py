@@ -34,17 +34,16 @@ from utils_visuals import (
 )
 
 import streamlit_authenticator as stauth
-
 # 👤 Utilisateurs de test (tu pourras en ajouter ou changer plus tard)
 names = ["Théo Naïm BENHELLAL", "Alexis DURIN"]
 usernames = ["theonaimben@gmail.com", "alexisdurin@gmail.com"]
-passwords = ["boomer", "yumi"]
 
-# 🔐 Hash des mots de passe (à ne faire qu'une fois)
+# 🔐 Mots de passe déjà hashés (générés une fois pour toutes)
 hashed_passwords = [
   '$2b$12$QRzQfV0DB5gD1K.TM5rjweh9CHx0IwlGAclczL2S3dQ7r29kULzGa',
-  '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvklMnAYVIJErU1/ELgM7b9C'
+  '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C'
 ]
+
 
 # Configuration des utilisateurs
 credentials = {

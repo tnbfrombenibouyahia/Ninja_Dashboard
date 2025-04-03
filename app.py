@@ -60,8 +60,12 @@ authenticator = stauth.Authenticate(
 )
 
 # Bloc de login
-name, authentication_status, username = authenticator.login(location="main")
+login_result = authenticator.login(location="main")
 
+if login_result is not None:
+    name, authentication_status, username = login_result
+else:
+    name = authentication_status = username = None
 
 
 

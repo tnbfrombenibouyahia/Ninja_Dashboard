@@ -60,7 +60,8 @@ authenticator = stauth.Authenticate(
 )
 
 # Bloc de login
-name, authentication_status, username = authenticator.login(location="main", form_name="Login")
+name, authentication_status, username = authenticator.login(location="main")
+
 
 
 

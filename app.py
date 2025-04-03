@@ -79,35 +79,31 @@ elif authentication_status:
     st.success(f"Bienvenue {name} 👋")
 
 
-# === Création auto des fichiers et dossiers à la première connexion
 if authentication_status:
     authenticator.logout("🚪 Se déconnecter", "sidebar")
     st.sidebar.success(f"Connecté en tant que {name}")
 
-    # === Création auto des fichiers et dossiers à la première connexion
     user_data_dir = os.path.join("data", username)
     os.makedirs(user_data_dir, exist_ok=True)
 
+    data_file = os.path.join(user_data_dir, "trades_historique.csv")
+    journal_file = os.path.join(user_data_dir, "journal_notes.json")
+    image_dir = os.path.join(user_data_dir, "journal_images")
+    os.makedirs(image_dir, exist_ok=True)
 
-data_file = os.path.join(user_data_dir, "trades_historique.csv")
-journal_file = os.path.join(user_data_dir, "journal_notes.json")
-image_dir = os.path.join(user_data_dir, "journal_images")
-os.makedirs(image_dir, exist_ok=True)
+    # Initialise journal
+    if not os.path.exists(journal_file):
+        with open(journal_file, "w") as f:
+            json.dump({}, f)
 
-
-# Initialise journal s’il n’existe pas
-if not os.path.exists(journal_file):
-    with open(journal_file, "w") as f:
-        json.dump({}, f)
-
-# Crée un fichier CSV vide s’il n’existe pas (facultatif mais pratique)
-if not os.path.exists(data_file):
-    df_empty = pd.DataFrame(columns=[
-        "Entry time", "Exit time", "Instrument", "Market pos.",
-        "Entry price", "Exit price", "Qty", "Profit",
-        "MAE", "MFE", "ETD"
-    ])
-    df_empty.to_csv(data_file, index=False)
+    # Crée CSV vide
+    if not os.path.exists(data_file):
+        df_empty = pd.DataFrame(columns=[
+            "Entry time", "Exit time", "Instrument", "Market pos.",
+            "Entry price", "Exit price", "Qty", "Profit",
+            "MAE", "MFE", "ETD"
+        ])
+        df_empty.to_csv(data_file, index=False)
 
 
 st.markdown("""

@@ -50,7 +50,7 @@ usernames = ["theonaimben@gmail.com", "alexisdurin@gmail.com"]
 # Ici, les hash Bcrypt sont déjà générés via:
 # stauth.Hasher(["mon_premier_mdp", "mon_deuxieme_mdp"]).generate()
 hashed_passwords = [
-    '$2b$12$kF09FDXUmrjH/epfedMW0RkUGZBd3mCUbGvswsSTFz05CLzyRjba',
+    '$2b$12$diwoxjm5v8dciC0/UUJXLuTPPFx5UrfiwhhgQwNVZYi4lZTwQJI0O',
     '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C'
 ]
 

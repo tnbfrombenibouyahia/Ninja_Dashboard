@@ -41,14 +41,18 @@ usernames = ["theonaimben@gmail.com", "alexisdurin@gmail.com"]
 
 # 🔐 Mots de passe déjà hashés (générés une fois pour toutes)
 hashed_passwords = [
-  '$2b$12$QRzQfV0DB5gD1K.TM5rjweh9CHx0IwlGAclczL2S3dQ7r29kULzGa',
-  '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C'
+  '$2b$12$FMsRQY9w6m0MjH5OJSVkeOq3R7rpOv6KXRC6yp3pmSzDq4vMaX1Eu',  # theo123
+  '$2b$12$bi.M/4T4GgDO7f.Gvfs6h.AScQVCFZnQq1rxRUImk1MZZUOlJauY2'   # alexis123
 ]
 
 # Configuration des utilisateurs
 credentials = {
     "usernames": {
-        uname: {"name": name, "password": pwd}
+        uname: {
+            "email": uname,
+            "name": name,
+            "password": pwd
+        }
         for uname, name, pwd in zip(usernames, names, hashed_passwords)
     }
 }

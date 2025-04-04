@@ -40,8 +40,8 @@ usernames = ["theonaimben@gmail.com", "alexisdurin@gmail.com"]
 
 # 🔐 Mots de passe déjà hashés (générés une fois pour toutes)
 hashed_passwords = [
-  '$2b$12$QRzQfV0DB5gD1K.TM5rjweh9CHx0IwlGAclczL2S3dQ7r29kULzGa',
-  '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C'
+  '$2b$12$j5x03CEKbOJ3BRAA.GO/1MuNCB5ShmcXfaPw1my4ubIB/ggo9faMm.',  # pour "boomer"
+  '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C'     # pour Alexis
 ]
 
 

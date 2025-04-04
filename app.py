@@ -111,67 +111,67 @@ elif authentication_status:
 
 st.title(" 🥷 Dashboard NinjaTrader")
 
+
 # Chargement de l'historique
 if os.path.exists(data_file):
-            df_histo = pd.read_csv(data_file, parse_dates=["Entry time", "Exit time"])
-            df_histo = df_histo[pd.notnull(df_histo["Entry time"])]  # 👈 ici
-else:
-            st.warning("Aucun fichier d'historique trouvé pour cet utilisateur.")
-            st.stop()
+    df_histo = pd.read_csv(data_file, parse_dates=["Entry time", "Exit time"])
+    df_histo = df_histo[pd.notnull(df_histo["Entry time"])]  # 👈 ici
 
     if df_histo.empty:
         st.warning("Ton historique est vide. Commence par importer des trades dans la sidebar 📂.")
-        
-        # Nettoyage du nom d'instrument
-        df_histo["Instrument"] = df_histo["Instrument"].str.extract(r"^([A-Z]+)")
+    # Nettoyage du nom d'instrument
+    df_histo["Instrument"] = df_histo["Instrument"].str.extract(r"^([A-Z]+)")
+else:
+    st.warning("Aucun fichier d'historique trouvé pour cet utilisateur.")
+    st.stop()
 
-        # === Filtres en haut de la page principale
-        st.markdown("---")
-        st.header("👀 Filtres")
-        col_f1, col_f2, col_f3 = st.columns(3)
+# === Filtres en haut de la page principale
+st.markdown("---")
+st.header("👀 Filtres")
+col_f1, col_f2, col_f3 = st.columns(3)
 
-        with col_f1:
-            instruments = df_histo["Instrument"].unique().tolist()
-            instrument = st.selectbox("🇺🇸 Instrument", ["Tous"] + instruments)
+with col_f1:
+    instruments = df_histo["Instrument"].unique().tolist()
+    instrument = st.selectbox("🇺🇸 Instrument", ["Tous"] + instruments)
 
-        with col_f2:
-            directions = df_histo["Market pos."].unique().tolist()
-            direction = st.selectbox("📌 Positions", ["Tous"] + directions)
+with col_f2:
+    directions = df_histo["Market pos."].unique().tolist()
+    direction = st.selectbox("📌 Positions", ["Tous"] + directions)
 
-        with col_f3:
-            if not df_histo["Entry time"].dropna().empty:
-                default_start = pd.to_datetime(df_histo["Entry time"]).min().date()
-                default_end = pd.to_datetime(df_histo["Entry time"]).max().date()
-            else:
-                default_start = date.today() - timedelta(days=30)
-                default_end = date.today()
+with col_f3:
+    if not df_histo["Entry time"].dropna().empty:
+        default_start = pd.to_datetime(df_histo["Entry time"]).min().date()
+        default_end = pd.to_datetime(df_histo["Entry time"]).max().date()
+    else:
+        default_start = date.today() - timedelta(days=30)
+        default_end = date.today()
 
-            date_range = st.date_input("📅 Période", (default_start, default_end))
+    date_range = st.date_input("📅 Période", (default_start, default_end))
 
 
-            # === Application des filtres
-            df_filtered = df_histo.copy()
+    # === Application des filtres
+    df_filtered = df_histo.copy()
 
-            if instrument != "Tous":
-                df_filtered = df_filtered[df_filtered["Instrument"] == instrument]
+    if instrument != "Tous":
+        df_filtered = df_filtered[df_filtered["Instrument"] == instrument]
 
-            if direction != "Tous":
-                df_filtered = df_filtered[df_filtered["Market pos."] == direction]
+    if direction != "Tous":
+        df_filtered = df_filtered[df_filtered["Market pos."] == direction]
 
-            # 🔍 Gère une seule date ou une plage
-            if isinstance(date_range, tuple) and len(date_range) == 2:
-                start_date, end_date = date_range
-            elif isinstance(date_range, date):
-                start_date = end_date = date_range
-            else:
-                start_date = df_histo["Entry time"].min().date()
-                end_date = df_histo["Entry time"].max().date()
+    # 🔍 Gère une seule date ou une plage
+    if isinstance(date_range, tuple) and len(date_range) == 2:
+        start_date, end_date = date_range
+    elif isinstance(date_range, date):
+        start_date = end_date = date_range
+    else:
+        start_date = df_histo["Entry time"].min().date()
+        end_date = df_histo["Entry time"].max().date()
 
-            if not df_filtered.empty and pd.api.types.is_datetime64_any_dtype(df_filtered["Entry time"]):
-                df_filtered = df_filtered[
-                    (df_filtered["Entry time"].dt.date >= start_date) &
-                    (df_filtered["Entry time"].dt.date <= end_date)
-                ]
+    if not df_filtered.empty and pd.api.types.is_datetime64_any_dtype(df_filtered["Entry time"]):
+        df_filtered = df_filtered[
+            (df_filtered["Entry time"].dt.date >= start_date) &
+            (df_filtered["Entry time"].dt.date <= end_date)
+        ]
 
 
     # === Sidebar : Upload uniquement

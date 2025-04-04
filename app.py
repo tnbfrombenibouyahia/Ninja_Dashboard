@@ -56,8 +56,14 @@ hashed_passwords = [
 
 credentials = {
     "usernames": {
-        uname: {"name": name, "password": pwd}
-        for uname, name, pwd in zip(usernames, names, hashed_passwords)
+        "theonaimben@gmail.com": {
+            "name": "Théo Naïm BENHELLAL",
+            "password": "$2b$12$diwoxjm5v8dciC0/UUJXLuTPPFx5UrfiwhhgQwNVZYi4lZTwQJI0O"
+        },
+        "alexisdurin@gmail.com": {
+            "name": "Alexis DURIN",
+            "password": "$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C"
+        }
     }
 }
 

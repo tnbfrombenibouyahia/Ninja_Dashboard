@@ -61,7 +61,6 @@ authenticator = stauth.Authenticate(
 
 # Bloc de login
 login_result = authenticator.login("Login", "main")
-
 try:
     name, authentication_status, username = login_result
 except TypeError:

@@ -73,6 +73,7 @@ if authentication_status is False:
     st.session_state.clear()
 elif authentication_status is None:
     st.warning("Veuillez entrer vos identifiants 🔐")
+
 elif authentication_status:
     st.success(f"Bienvenue {name} 👋")
     authenticator.logout("🚪 Se déconnecter", "sidebar")
@@ -111,18 +112,15 @@ elif authentication_status:
 
     st.title(" 🥷 Dashboard NinjaTrader")
 
-    # Chargement de l'historique
+    # === Chargement de l'historique (DOIT être ici, après que data_file soit défini)
     if os.path.exists(data_file):
         df_histo = pd.read_csv(data_file, parse_dates=["Entry time", "Exit time"])
-        df_histo = df_histo[pd.notnull(df_histo["Entry time"])]  # 👈 ici
-
-        if df_histo.empty:
-            st.warning("Ton historique est vide. Commence par importer des trades dans la sidebar 📂.")
-        # Nettoyage du nom d'instrument
+        df_histo = df_histo[pd.notnull(df_histo["Entry time"])]
         df_histo["Instrument"] = df_histo["Instrument"].str.extract(r"^([A-Z]+)")
     else:
         st.warning("Aucun fichier d'historique trouvé pour cet utilisateur.")
         st.stop()
+
 
     # === Filtres en haut de la page principale
     st.markdown("---")

@@ -48,14 +48,17 @@ hashed_passwords = [
 # Configuration des utilisateurs
 credentials = {
     "usernames": {
-        uname: {
-            "email": uname,
-            "name": name,
-            "password": pwd
+        "theonaimben@gmail.com": {
+            "name": "Théo Naïm BENHELLAL",
+            "password": "$2b$12$FMsRQY9w6m0MjH5OJSVkeOq3R7rpOv6KXRC6yp3pmSzDq4vMaX1Eu"
+        },
+        "alexisdurin@gmail.com": {
+            "name": "Alexis DURIN",
+            "password": "$2b$12$bi.M/4T4GgDO7f.Gvfs6h.AScQVCFZnQq1rxRUImk1MZZUOlJauY2"
         }
-        for uname, name, pwd in zip(usernames, names, hashed_passwords)
     }
 }
+
 
 # Création de l'authenticator
 authenticator = stauth.Authenticate(

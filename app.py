@@ -292,16 +292,16 @@ st.markdown("## 🎰 Profit / Risk Zone")
 col1, col2 = st.columns(2)
 
 with col1:
-    st.plotly_chart(plot_equity_curve(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_equity_curve(df_filtered), use_container_width=True, key="equity")
 
 with col2:
-    st.plotly_chart(plot_drawdown_curve(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_drawdown_curve(df_filtered), use_container_width=True, key='drawdown')
 
 col_daily1, col_daily2 = st.columns(2)
 with col_daily1:
-    st.plotly_chart(plot_daily_pnl(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_daily_pnl(df_filtered), use_container_width=True, key="daily_pnl")
 with col_daily2:
-    st.plotly_chart(plot_daily_drawdown(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_daily_drawdown(df_filtered), use_container_width=True, key="daily_drawdown")
 
 # Statistiques clés
 stats = compute_stats_dict(df_filtered)
@@ -337,15 +337,15 @@ st.markdown("## 🏄‍♂️ Timing Zone")
 
 col1b, col2b = st.columns(2)
 with col1b:
-    st.plotly_chart(plot_avg_duration_per_day(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_avg_duration_per_day(df_filtered), use_container_width=True, key="avg_duration")
 with col2b:
-    st.plotly_chart(plot_return_vs_duration(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_return_vs_duration(df_filtered), use_container_width=True, key="return_duration")
 
 col3, col4 = st.columns(2)
 with col3:
-    st.plotly_chart(plot_pnl_by_day_of_week(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_pnl_by_day_of_week(df_filtered), use_container_width=True, key="pnl_day")
 with col4:
-    st.plotly_chart(plot_pnl_by_hour(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_pnl_by_hour(df_filtered), use_container_width=True, key="pnl_hour")
 
 # Statistiques Timing
 st.markdown("---")
@@ -397,9 +397,9 @@ st.markdown("## 🧀 Distribution")
 
 col5, col6 = st.columns(2)
 with col5:
-    st.plotly_chart(plot_asset_distribution(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_asset_distribution(df_filtered), use_container_width=True, key="asset_distr")
 with col6:
-    st.plotly_chart(plot_gain_loss_pie(df_filtered), use_container_width=True)
+    st.plotly_chart(plot_gain_loss_pie(df_filtered), use_container_width=True, key="gain_loss")
 
 # ─────────────────────────────────────────────────────────────────────────
 # Optimisation des targets
@@ -407,8 +407,8 @@ with col6:
 st.markdown("---")
 st.markdown("## 👨‍🔬 Optimisation des targets")
 
-st.plotly_chart(plot_histogram_mae_mfe_etd(df_filtered), use_container_width=True)
-st.plotly_chart(plot_scatter_mfe_vs_profit(df_filtered), use_container_width=True)
+st.plotly_chart(plot_histogram_mae_mfe_etd(df_filtered), use_container_width=True, key="hist_mfe")
+st.plotly_chart(plot_scatter_mfe_vs_profit(df_filtered), use_container_width=True, key="mfe_profit")
 
 mae_mean = round(df_filtered["MAE"].mean(), 2) if "MAE" in df_filtered else 0
 mfe_mean = round(df_filtered["MFE"].mean(), 2) if "MFE" in df_filtered else 0

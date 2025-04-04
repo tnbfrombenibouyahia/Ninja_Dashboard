@@ -7,4 +7,4 @@ yfinance
 calplot
 bcrypt
 pyyaml
-# etc. ajoutez-y tout ce dont vous avez besoin
+

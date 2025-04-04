@@ -9,6 +9,7 @@ import datetime as dt
 import yfinance as yf
 import plotly.graph_objects as go
 from data_cleaner import load_and_clean_csv, update_historical_data
+import streamlit_authenticator as stauth
 
 st.set_page_config(
     page_title="🥷 Trading Dashboard",
@@ -33,15 +34,14 @@ from utils_visuals import (
     plot_scatter_mfe_vs_profit,
 )
 
-import streamlit_authenticator as stauth
 # 👤 Utilisateurs de test (tu pourras en ajouter ou changer plus tard)
 names = ["Théo Naïm BENHELLAL", "Alexis DURIN"]
 usernames = ["theonaimben@gmail.com", "alexisdurin@gmail.com"]
 
 # 🔐 Mots de passe déjà hashés (générés une fois pour toutes)
 hashed_passwords = [
-  '$2b$12$kF09FDXUmrjH/epfedMW0RkUGZBd3mCUbGvswsSTFz05CLzyRjba',
-  '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C'
+    '$2b$12$kF09FDXUmrjH/epfedMW0RkUGZBd3mCUbGvswsSTFz05CLzyRjba',
+    '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C'
 ]
 
 # Configuration des utilisateurs
@@ -92,17 +92,24 @@ elif authentication_status:
 
     # Initialisation fichiers si absents
     if not os.path.exists(data_file):
-        pd.DataFrame(columns=["Entry time", "Exit time", "Instrument", ...]).to_csv(data_file, index=False)
+        pd.DataFrame(columns=["Entry time", "Exit time", "Instrument", "Market pos.", "Entry price", "Exit price", "Qty", "Profit", "MAE", "MFE", "ETD"]).to_csv(data_file, index=False)
+
     if not os.path.exists(journal_file):
         with open(journal_file, "w") as f:
             json.dump({}, f)
     
-    # Chargement data utilisateur
-    if os.path.exists(data_file):
-        df_histo = pd.read_csv(data_file, parse_dates=["Entry time", "Exit time"])
-    else:
+    # === Chargement de l'historique (après la définition de `data_file`)
+    try:
+        if os.path.exists(data_file):
+            df_histo = pd.read_csv(data_file, parse_dates=["Entry time", "Exit time"])
+            df_histo = df_histo[pd.notnull(df_histo["Entry time"])]
+            df_histo["Instrument"] = df_histo["Instrument"].str.extract(r"^([A-Z]+)")
+        else:
+            st.warning("Aucun fichier d'historique trouvé pour cet utilisateur.")
+            st.stop()
+    except Exception as e:
+        st.error(f"Erreur lors du chargement du fichier historique : {e}")
         st.stop()
-
 
     # === UI Style
     st.markdown("""
@@ -117,15 +124,6 @@ elif authentication_status:
     """, unsafe_allow_html=True)
 
     st.title(" 🥷 Dashboard NinjaTrader")
-
-    # === Chargement de l'historique (DOIT être ici, après que data_file soit défini)
-    if os.path.exists(data_file):
-        df_histo = pd.read_csv(data_file, parse_dates=["Entry time", "Exit time"])
-        df_histo = df_histo[pd.notnull(df_histo["Entry time"])]
-        df_histo["Instrument"] = df_histo["Instrument"].str.extract(r"^([A-Z]+)")
-    else:
-        st.warning("Aucun fichier d'historique trouvé pour cet utilisateur.")
-        st.stop()
 
 
     # === Filtres en haut de la page principale

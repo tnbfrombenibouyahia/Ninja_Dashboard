@@ -1,5 +1,5 @@
 import streamlit_authenticator as stauth
 
-hashed_password = stauth.Hasher().hash("boomer")
-print(hashed_password)
-
+passwords = ['boomer', 'yumi']
+hashed_passwords = stauth.Hasher(passwords).generate()
+print(hashed_passwords)

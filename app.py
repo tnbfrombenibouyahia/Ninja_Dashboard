@@ -78,7 +78,8 @@ authenticator = stauth.Authenticate(
     cookie_expiry_days=7    # durée de validité (jours)
 )
 
-login_result = authenticator.login(location="main")
+login_result = authenticator.login("Login", "main")
+
 
 try:
     name, authentication_status, username = login_result

@@ -1,5 +1,5 @@
-streamlit
-streamlit-authenticator
+streamlit==1.44.1
+streamlit-authenticator==0.2.2
 pandas
 numpy
 plotly
@@ -7,3 +7,4 @@ yfinance
 calplot
 bcrypt
 pyyaml
+# etc. ajoutez-y tout ce dont vous avez besoin

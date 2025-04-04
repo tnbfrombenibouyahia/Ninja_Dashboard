@@ -1,4 +1,8 @@
-import streamlit_authenticator as stauth
+import bcrypt
 
-hashed = stauth.Hasher(['boomer']).generate()
-print(hashed)
+plaintext = "boomer"
+salt = bcrypt.gensalt(rounds=12)  # 12 ou plus
+hashed = bcrypt.hashpw(plaintext.encode(), salt)
+hashed_str = hashed.decode()
+
+print(hashed_str)

@@ -70,32 +70,39 @@ except TypeError:
 if authentication_status is False:
     st.error("Nom d’utilisateur ou mot de passe invalide ❌")
     st.session_state.clear()
+
 elif authentication_status is None:
     st.warning("Veuillez entrer vos identifiants 🔐")
 
 elif authentication_status:
-    st.success(f"Bienvenue {name} 👋")
+
+    # Exemple : logout
     authenticator.logout("🚪 Se déconnecter", "sidebar")
     st.sidebar.success(f"Connecté en tant que {name}")
 
-    # === Dossiers et fichiers utilisateur
+    # Fichiers perso
     user_data_dir = os.path.join("data", username)
     os.makedirs(user_data_dir, exist_ok=True)
     data_file = os.path.join(user_data_dir, "trades_historique.csv")
     journal_file = os.path.join(user_data_dir, "journal_notes.json")
-    image_dir = os.path.join(user_data_dir, "journal_images")
-    os.makedirs(image_dir, exist_ok=True)
 
-    # === Initialisation fichiers
+    st.success(f"Bienvenue {name} 👋")
+    authenticator.logout("🚪 Se déconnecter", "sidebar")
+    st.sidebar.success(f"Connecté en tant que {name}")
+
+    # Initialisation fichiers si absents
+    if not os.path.exists(data_file):
+        pd.DataFrame(columns=["Entry time", "Exit time", "Instrument", ...]).to_csv(data_file, index=False)
     if not os.path.exists(journal_file):
         with open(journal_file, "w") as f:
             json.dump({}, f)
-    if not os.path.exists(data_file):
-        pd.DataFrame(columns=[
-            "Entry time", "Exit time", "Instrument", "Market pos.",
-            "Entry price", "Exit price", "Qty", "Profit",
-            "MAE", "MFE", "ETD"
-        ]).to_csv(data_file, index=False)
+    
+    # Chargement data utilisateur
+    if os.path.exists(data_file):
+        df_histo = pd.read_csv(data_file, parse_dates=["Entry time", "Exit time"])
+    else:
+        st.stop()
+
 
     # === UI Style
     st.markdown("""

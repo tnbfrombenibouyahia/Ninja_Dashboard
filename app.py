@@ -47,8 +47,6 @@ st.set_page_config(
 names = ["Théo Naïm BENHELLAL", "Alexis DURIN"]
 usernames = ["theonaimben@gmail.com", "alexisdurin@gmail.com"]
 
-# Ici, les hash Bcrypt sont déjà générés via:
-# stauth.Hasher(["mon_premier_mdp", "mon_deuxieme_mdp"]).generate()
 hashed_passwords = [
     '$2b$12$diwoxjm5v8dciC0/UUJXLuTPPFx5UrfiwhhgQwNVZYi4lZTwQJI0O',
     '$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C'
@@ -60,9 +58,9 @@ credentials = {
             "name": "Théo Naïm BENHELLAL",
             "password": "$2b$12$diwoxjm5v8dciC0/UUJXLuTPPFx5UrfiwhhgQwNVZYi4lZTwQJI0O"
         },
-        "alexisdurin@gmail.com": {
+        "durinalexis@gmail.com": {
             "name": "Alexis DURIN",
-            "password": "$2b$12$/DFXDjyc2sEGqPXCweJqduJcxE6tSlvk1MnAYVIJErU1/ELgM7b9C"
+            "password": "$2b$12$83LWaR64YJwamdbNj/rE8u1V9EES1tnuIulQEKfneQl95ILZStMy6"
         }
     }
 }
